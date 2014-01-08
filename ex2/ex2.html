@@ -2,13 +2,13 @@
 <head>
     <link rel="stylesheet" href="../bower_components/foundation/css/foundation.min.css">
     <script src="../bower_components/angular/angular.min.js"></script>
-    <script src="ex1.js"></script>
+    <script src="ex2.js"></script>
 </head>
 <body ng-controller="MyCtrl">
 <div class="row">
-    <h1>{{name}}</h1>
-    <input type="text" ng-model="name">
-    <button ng-click="Click()">Test</button>
+    <h1>Joke {{data.value.id}}</h1>
+    <p>{{data.value.joke}}</p>
+    <button ng-click="Click()">Fetch joke</button>
 </div>
 </body>
 </html>
