@@ -1,0 +1,21 @@
+{
+  "name": "angular-presentation",
+  "version": "0.0.1",
+  "authors": [
+    "Mattias Holmlund <mattias.git@holmlund.se>"
+  ],
+  "description": "Presentation on AngularJS for neti",
+  "license": "Proprietary",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "~5.0.2",
+    "angular": "~1.2.7"
+  }
+}
