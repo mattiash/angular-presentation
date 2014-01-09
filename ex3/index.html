@@ -1,0 +1,19 @@
+<html ng-app>
+<head>
+    <link rel="stylesheet" href="../bower_components/foundation/css/foundation.min.css">
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="ex3.js"></script>
+</head>
+<body ng-controller="MyCtrl">
+<div class="row">
+    <h1>Chuck Norris jokes</h1>
+    <table>
+        <tr ng-repeat="joke in data.value">
+            <td>{{joke.id}}</td>
+            <td>{{joke.joke}}</td>
+        </tr>
+    </table>
+    <button ng-click="Click()">Fetch jokes</button>
+</div>
+</body>
+</html>
