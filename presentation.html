@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
     <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
-    <title>Remark</title>
+    <title>AngularJS Presentation</title>
     <link rel="stylesheet" href="presentation.css"></link>
   </head>
   <body>
@@ -196,13 +196,98 @@ function myCtrl( $scope ) {
 ]
 
 ---
+name: example1
 
-- Example form and text updated automatically
-- ng-repeat
+# Example 1
+
+Form and text updated automatically
+
+[Example](ex1/)
+
+---
+name: example2
+
+# json data via http
+
+## Request:
+```
+get "http://api.icndb.com/jokes/random"
+```
+
+## Response:
+
+```javascript
+{
+   "type": "success",
+   "value": {
+      "id": 459,
+      "joke": "Chuck Norris can solve the Towers of Hanoi in one move.",
+      "categories": ["nerdy"]
+   }
+}
+```
+
+---
+
+# Controller
+
+```javascript
+function MyCtrl( $scope, $http ) {
+    $scope.FetchJoke = function() {
+        $http.get( "http://api.icndb.com/jokes/random")
+        .then( function(response) {
+            $scope.data = response.data;
+        });
+    }
+}
+
+```
+
+---
+
+# Template
+
+```html
+<body ng-controller="MyCtrl">
+<div class="row">
+    <h1>Joke {{data.value.id}}</h1>
+    <p>{{data.value.joke}}</p>
+    <button ng-click="FetchJoke()">Fetch joke</button>
+</div>
+```
+
+[Example](ex2/)
+
+---
+name: example3
+
+# Example 3
+
+[Example](ex3/)
+Iteration
+
+---
+
 - ng-show
+
+<span class="label" ng-show="joke.id<100">Top 100!</span>
+
 - custom directives
 
 - mention websockets and pushing data from server to client
+
+---
+
+Demo webapp
+
+---
+
+# Code size
+
+Webapp: 146k minified js
+Current web: 172k mostly minified js
+
+Can gzip compress down to one third.
 
 ---
 name: last-page

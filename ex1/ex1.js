@@ -1,5 +1,5 @@
 function MyCtrl( $scope ) {
-    $scope.name = "Mattias";
+    $scope.name = "world";
     $scope.Click = function() {
         alert( "Hello " + $scope.name );
     }
