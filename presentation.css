@@ -129,3 +129,14 @@ code {
 .sample h2 {
     margin-top: 0;
 }
+
+.panel {
+    -moz-border-radius: 5px;
+    -web-border-radius: 5px;
+    color : #8a6d3b;
+    background-color: #fcf8e3;
+    border-radius: 5px;
+    border: 2px solid #faebcc;
+    padding: 0.5em;
+    font-size: 20px;
+}

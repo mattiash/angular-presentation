@@ -153,7 +153,7 @@ Entire model contained in a single javascript data structure.
   ## View
 ]
 .right-column[
-Html with references to model
+"Extended" html with references to model
 
 ```html
 <h2>{{company}}</h2>
@@ -196,20 +196,64 @@ function myCtrl( $scope ) {
 ]
 
 ---
+template: inverse
 name: example1
 
 # Example 1
-
-Form and text updated automatically
-
-[Example](ex1/)
+# Angular watches the model
 
 ---
-name: example2
 
+## Controller populates Model
+
+```javascript
+function MyCtrl( $scope ) {
+    $scope.name = "World";
+    $scope.Click = function() {
+        alert( "Hello " + $scope.name );
+    }
+}
+```
+
+---
+
+## View
+
+```html
+<html ng-app>
+<head>
+  <link rel="stylesheet"
+    href="../bower_components/foundation/css/foundation.min.css">
+  <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="ex1.js"></script>
+</head>
+
+<body ng-controller="MyCtrl">
+
+<div class="row">
+  <h1>{{name}}</h1>
+  <input type="text" ng-model="name">
+  <button ng-click="Click()">Click me</button>
+</div>
+
+</body>
+
+</html>
+```
+
+
+<a href="ex1/index.html" target="_blank">Result</a>
+
+---
+template: inverse
+
+# Example 2
 # json data via http
 
+---
+
 ## Request:
+
 ```
 get "http://api.icndb.com/jokes/random"
 ```
@@ -233,12 +277,14 @@ get "http://api.icndb.com/jokes/random"
 
 ```javascript
 function MyCtrl( $scope, $http ) {
+
     $scope.FetchJoke = function() {
         $http.get( "http://api.icndb.com/jokes/random")
         .then( function(response) {
             $scope.data = response.data;
         });
     }
+
 }
 
 ```
@@ -256,50 +302,225 @@ function MyCtrl( $scope, $http ) {
 </div>
 ```
 
-[Example](ex2/)
+<a href="ex2/index.html" target="_blank">Result</a>
 
 ---
+template: inverse
 name: example3
 
 # Example 3
-
-[Example](ex3/)
-Iteration
+# Iterating through an array
 
 ---
 
-- ng-show
+## Request
+```
+get http://api.icndb.com/jokes/random/3
+```
 
-<span class="label" ng-show="joke.id<100">Top 100!</span>
-
-- custom directives
-
-- mention websockets and pushing data from server to client
+## Response
+```javascript
+{
+    "type": "success",
+    "value": [
+        { "id": 513, "joke": "Chuck Norris does not...",
+          "categories": ["nerdy"] },
+        { "id": 156, "joke": "There is no such...",
+          "categories": [] },
+        { "id": 249, "joke": "Maslow's theory...",
+          "categories": [] }
+    ]
+}
+```
 
 ---
 
-Demo webapp
+## Controller
+
+```javascript
+function MyCtrl( $scope, $http ) {
+
+  $scope.FetchJokes = function() {
+    $http.get( "http://api.icndb.com/jokes/random/3")
+    .then( function(response) {
+      $scope.data = response.data;
+    });
+  }
+
+}
+```
+
+---
+
+## View
+
+```html
+<body ng-controller="MyCtrl">
+<div class="row">
+    <h1>Chuck Norris jokes</h1>
+    <table>
+        <tr ng-repeat="joke in data.value">
+            <td>{{joke.id}}</td>
+            <td>{{joke.joke}}</td>
+        </tr>
+    </table>
+    <button ng-click="FetchJokes()">Fetch jokes</button>
+</div>
+</body>
+```
+
+<a href="ex3/index.html" target="_blank">Result</a>
+
+---
+
+template: inverse
+
+# Example 4
+# Showing stuff conditionally
+
+---
+template: inverse
+
+# Custom directives
+
+```html
+<avatar username="username"></avatar>
+```
+
+```html
+<div collapsable>This message can be collapsed</div>
+```
+
+*Separation of concerns*
+
+---
+template: inverse
+
+# Routes and views
+
+Entire application on one page but the url changes
+
+---
+
+# Routes and views
+
+```javascript
+.when("/ets/if/:interface/basic", {
+    templateUrl: "ets.if.basic.tmpl.html",
+    controller: "EtsIfBasicCtrl",
+})
+
+```
+
+```html
+<div ng-view></div>
+```
+
+*Separation of concerns*
+
+---
+template: inverse
+
+# Services
+
+Separate different parts of the codebase from each other using services
+
+*Separation of concerns*
+
+---
+
+template: inverse
+
+# Testability
+
+Uses Dependency injection
+
+Includes mocks for core services
+
+---
+
+template: inverse
+
+# Real world test
+
+---
+
+## IP Interfaces Request
+
+```
+POST /data/oam
+```
+
+```javascript
+[
+  {
+    "root":    "ipconf.if.*",
+    "entries": "name address.0.inet? address.0.netmask? " +
+               "media.active media.current mtu"
+  }
+]
+```
+---
+
+## IP Interfaces Response
+
+
+```javascript
+{
+"_success": true,
+"_errors": [],
+  "ipconf": {
+    "if": {
+      "0": {
+        "name": "eth-aux",
+        "address": {},
+        "media": {
+          "active": "link down",
+          "current": "autoselect"
+        },
+        "mtu": "1500"
+      },
+      "1": { ... }
+    }
+  }
+}
+```
+
+.panel[
+Response built by node **without understanding the contents of oam**
+]
 
 ---
 
 # Code size
 
-Webapp: 146k minified js
-Current web: 172k mostly minified js
+Current web: **172k** mostly minified js
+
+Webapp: **146k** minified js
 
 Can gzip compress down to one third.
+
+Data per page is a lot smaller with AngularJS.
+
+---
+
+# Development Effort
+
+- Powerful development and debugging environment
+- Quick turnaround time
+- Possible to write tests
+- Very little code
+- Fun!
 
 ---
 name: last-page
 template: inverse
 
 ## More info:
-        angularjs.org
-        egghead.io
+        [angularjs.org](http://angularjs.org)
+        Instruction videos on [egghead.io](http://egghead.io)
         Google+ group
 
-
-Slideshow created using [remark](http://github.com/gnab/remark).
     </textarea>
     <script src="http://gnab.github.com/remark/downloads/remark-0.5.9.min.js" type="text/javascript"></script>
     <script type="text/javascript">
