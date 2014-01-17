@@ -1,4 +1,6 @@
 angular-presentation
 ====================
 
-Presentation on AngularJS. Clone and open presentation.html in a browser.
+Presentation on AngularJS. View it on 
+
+http://mattiash.github.io/angular-presentation/presentation.html
