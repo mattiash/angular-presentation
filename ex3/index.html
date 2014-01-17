@@ -10,12 +10,10 @@
     <table>
         <tr ng-repeat="joke in data.value">
             <td>{{joke.id}}</td>
-            <td>{{joke.joke}} <span class="label" ng-show="joke.id<100">Top 100!</span></td>
+            <td>{{joke.joke}}</td>
         </tr>
     </table>
-    <button ng-click="Click()">Fetch jokes</button>
+    <button ng-click="FetchJokes()">Fetch jokes</button>
 </div>
-<div class="row"><a href="../presentation.html#example3">Back</a></div>
-
 </body>
 </html>
